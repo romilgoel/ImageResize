@@ -24,8 +24,10 @@ This library is pretty simple in usage.
 
 ## Example 
 
-Input Image: 
+Input Image:  
+
 ![](https://s21.postimg.org/j3khle79z/nature.jpg)
 
-Output Image: 
+Output Image:  
+
 ![](https://s15.postimg.org/e0egc11p7/nature1.jpg)
