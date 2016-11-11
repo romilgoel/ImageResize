@@ -25,7 +25,7 @@ This library is pretty simple in usage.
 ## Example 
 
 Input Image: 
-![](http://oi66.tinypic.com/20kxiy0.jpg)
+![](https://s21.postimg.org/j3khle79z/nature.jpg)
 
 Output Image: 
-![](http://oi67.tinypic.com/2rlzxau.jpg)
+![](https://s15.postimg.org/e0egc11p7/nature1.jpg)
