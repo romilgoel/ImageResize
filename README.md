@@ -17,17 +17,39 @@ This library is pretty simple in usage.
 `$resizeObj = new ImageResize($input);`
 
 ##### Step 5: Resize the image to the dimension you want  
-`$resizeObj->resize(200,300);`
+`$resizeObj->resize($width = 200,$height = 300);`
 
 ##### Step 6: Output the image  
 `$resizeObj->output($output);`
 
 ## Example 
 
+#### Example 1 : With Blurred image padding
+
+`$new = new ImageResize($input);
+$new->resize($width = 600, $height = 450);
+$new->output($output);`
+
 Input Image:  
 
 ![](https://s21.postimg.org/j3khle79z/nature.jpg)
 
 Output Image:  
+
+![](https://s15.postimg.org/e0egc11p7/nature1.jpg)
+
+
+#### Example 2 : With White Space padding
+`$new = new ImageResize($input);
+$new->options("whitepadding", true);
+$new->resize($width = 600, $height = 450);
+$new->output($output);`
+
+Input Image:  
+
+![](https://s21.postimg.org/j3khle79z/nature.jpg)
+
+Output Image:  
+`$new->resize($width = 600, $height = 450);`
 
 ![](https://s15.postimg.org/e0egc11p7/nature1.jpg)
