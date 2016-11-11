@@ -8,19 +8,19 @@ This library is pretty simple in usage.
 `include_once("ImageResize.php");`
 
 ##### Step 2: Image to be resized  
-$input = "inputImage.png";`
+`$input = "inputImage.png";`
 
 ##### Step 3: Output Image  
-$output = "outputImage.png";`
+`$output = "outputImage.png";`
 
 ##### Step 4: Take the object of the library  
-$resizeObj = new ImageResize($input);`
+`$resizeObj = new ImageResize($input);`
 
 ##### Step 5: Resize the image to the dimension you want  
-$resizeObj->resize(200,300);`
+`$resizeObj->resize(200,300);`
 
 ##### Step 6: Output the image  
-$resizeObj->output($output);`
+`$resizeObj->output($output);`
 
 ## Example 
 
