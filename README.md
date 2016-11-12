@@ -52,4 +52,4 @@ Input Image:
 Output Image:  
 `$new->resize($width = 600, $height = 450);`
 
-![](https://s15.postimg.org/e0egc11p7/nature1.jpg)
+![](https://s21.postimg.org/js4ve41ef/nature1.jpg)
