@@ -1,5 +1,5 @@
 ## Introduction
-ImageResize is a small PHP library for resizing any image. Size of the image can be increased or decreased by keeping the aspect ratio of the image as it is. 
+ImageResize is a small PHP library to resize images. Size of the image can be increased or decreased by keeping the aspect ratio of the image as it is. 
 
 ## How to Use
 This library is pretty simple in usage.
@@ -26,9 +26,9 @@ This library is pretty simple in usage.
 
 #### Example 1 : With Blurred image padding
 
-`$new = new ImageResize($input);
-$new->resize($width = 600, $height = 450);
-$new->output($output);`
+`$new = new ImageResize($input);`  
+`$new->resize($width = 600, $height = 450);`  
+`$new->output($output);`
 
 Input Image:  
 
@@ -49,11 +49,13 @@ Input Image:
 
 ![](https://s21.postimg.org/j3khle79z/nature.jpg)
 
-Output Image:  
+Output Image:
 
 ![](https://s22.postimg.org/axq7whz8h/nature1.jpg)
 
-OR, if you want to put any color in the padding area
+#### Example 3 : With Colored(any) padding 
+
+If you want to put any color in the padding area
 
 `$new = new ImageResize($input);`  
 `$new->options("colorpadding", true);`  
@@ -61,6 +63,33 @@ OR, if you want to put any color in the padding area
 `$new->options("paddingcolor", array(149,213,50));`  
 `$new->output($output);`  
 
+Input Image:  
+
+![](https://s21.postimg.org/j3khle79z/nature.jpg)
+
 Output Image:  
 
 ![](https://s21.postimg.org/js4ve41ef/nature1.jpg)
+
+
+#### Example 4 : Crop Image
+
+`$new = new ImageResize($input);`  
+`$new->options("crop-image", true);`
+`$new->resize($width = 600, $height = 450);`  
+`$new->output($output);`
+
+Input Image:  
+
+![](https://s21.postimg.org/j3khle79z/nature.jpg)
+
+Output Image:  
+
+![](https://s16.postimg.org/xv2f88f5x/nature1.jpg)
+
+OR, if you want to specify the percentage of image that can be cropped else pad-image with any color/blur image.
+
+`$new = new ImageResize($input);`  
+`$new->options("crop-percent", 50);`
+`$new->resize($width = 600, $height = 450);`  
+`$new->output($output);`
