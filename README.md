@@ -40,10 +40,10 @@ Output Image:
 
 
 #### Example 2 : With White Space padding
-`$new = new ImageResize($input);  
- $new->options("colorpadding", true);`
-`$new->resize($width = 600, $height = 450);`
-`$new->output($output);`
+`$new = new ImageResize($input);`  
+`$new->options("colorpadding", true);`  
+`$new->resize($width = 600, $height = 450);`  
+`$new->output($output);`  
 
 Input Image:  
 
@@ -55,11 +55,11 @@ Output Image:
 
 OR, if you want to put any color in the padding area
 
-`$new = new ImageResize($input);`
-`$new->options("colorpadding", true);`
-`$new->resize($width = 600, $height = 450);`
-`$new->options("paddingcolor", array(149,213,50));`
-`$new->output($output);`
+`$new = new ImageResize($input);`  
+`$new->options("colorpadding", true);`  
+`$new->resize($width = 600, $height = 450);`  
+`$new->options("paddingcolor", array(149,213,50));`  
+`$new->output($output);`  
 
 Output Image:  
 
