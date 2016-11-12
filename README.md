@@ -75,7 +75,7 @@ Output Image:
 #### Example 4 : Crop Image
 
 `$new = new ImageResize($input);`  
-`$new->options("crop-image", true);`
+`$new->options("crop-image", true);`  
 `$new->resize($width = 600, $height = 450);`  
 `$new->output($output);`
 
@@ -90,6 +90,6 @@ Output Image:
 OR, if you want to specify the percentage of image that can be cropped else pad-image with any color/blur image.
 
 `$new = new ImageResize($input);`  
-`$new->options("crop-percent", 50);`
+`$new->options("crop-percent", 50);`  
 `$new->resize($width = 600, $height = 450);`  
 `$new->output($output);`
