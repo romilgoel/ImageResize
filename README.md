@@ -40,8 +40,8 @@ Output Image:
 
 
 #### Example 2 : With White Space padding
-`$new = new ImageResize($input);`
-`$new->options("colorpadding", true);`
+`$new = new ImageResize($input);  
+ $new->options("colorpadding", true);`
 `$new->resize($width = 600, $height = 450);`
 `$new->output($output);`
 
