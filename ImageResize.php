@@ -10,6 +10,8 @@ class ImageResize
 	private $blurLevel = 100;
 	private $modifiedImage;
 	private $percentageAllowedForCrop = 0;
+	private $paddingType = 'blur';
+	private $paddingcolor = array(255,255,255);
 
 	function __construct($path = '')
 	{
@@ -59,7 +61,7 @@ class ImageResize
 	 * @param  [type]     $height [description]
 	 * @return [type]             [description]
 	 */
-	function resize($width, $height, $blurBackgroundFlag = 1){
+	function resize($width, $height){
 
 		if(empty($height) || empty($width))
 			return "Please specify proper dimensions of converted image";
@@ -86,7 +88,7 @@ class ImageResize
 		else
 			$percentPadding = $percentPaddingY;
 
-		echo "<br/>width : ".$width." and height : ".$height." and percentPadding : ".$percentPadding;
+		// echo "<br/>width : ".$width." and height : ".$height." and percentPadding : ".$percentPadding;
 		if($percentPadding > $this->percentageAllowedForCrop){
 			$blurOrCrop = 'blur';
 		}
@@ -106,28 +108,33 @@ class ImageResize
 			imagesavealpha($this->modifiedImage, true);
 		}
 		else{
-			$clear = imagecolorallocate( $this->modifiedImage, 255, 255, 255);
+			$clear = imagecolorallocate( $this->modifiedImage, $this->paddingcolor[0], $this->paddingcolor[1], $this->paddingcolor[2]);
 			imagefill($this->modifiedImage, 0, 0, $clear);
 		}
 
-  		if($blurBackgroundFlag && ($dest_x || $dest_y)){
+  		if($this->paddingType == 'blur' && ($dest_x || $dest_y)){
 
-			$backgroundBlurImage = imagecreatetruecolor($width, $height);
-		  	imagecopyresampled($backgroundBlurImage, $this->imageOriginal, 0, 0, $croppedVersion_x, $croppedVersion_y, ($width), ($height), $croppedVersionWidth, $croppedVersionHeight);
+			$paddingImage = imagecreatetruecolor($width, $height);
+		  	imagecopyresampled($paddingImage, $this->imageOriginal, 0, 0, $croppedVersion_x, $croppedVersion_y, ($width), ($height), $croppedVersionWidth, $croppedVersionHeight);
 		  	for ($i = 0; $i < $this->blurLevel; ++$i) {
-			    imagefilter($backgroundBlurImage, IMG_FILTER_GAUSSIAN_BLUR);
+			    imagefilter($paddingImage, IMG_FILTER_GAUSSIAN_BLUR);
 		  	}
 		}
 
-		if($blurOrCrop == 'blur' && $blurBackgroundFlag){
+		if($blurOrCrop == 'blur' && $this->paddingType == 'blur'){
 			// for blurred image background
-			if($backgroundBlurImage)
-		  		imagecopyresampled($this->modifiedImage, $backgroundBlurImage,  0, 0, 0, 0, $width, $height, $width, $height);
+			if($paddingImage)
+		  		imagecopyresampled($this->modifiedImage, $paddingImage,  0, 0, 0, 0, $width, $height, $width, $height);
 
-		  	// for white background
-		 	// $clear = imagecolorallocate( $new, 255, 255, 255);
-			// imagefill($new, 0, 0, $clear);
-			
+		  	// put original image in the canvas
+		  	imagecopyresampled($this->modifiedImage, $this->imageOriginal, $dest_x, $dest_y, 0, 0, $dest_width, $dest_height, $this->imageOriginalWidth, $this->imageOriginalHeight);
+		}
+		else if($this->paddingType == 'colorpadding'){
+			// for white background
+			$paddingImage = imagecreatetruecolor($width, $height);
+		 	$clear = imagecolorallocate( $paddingImage, $this->paddingcolor[0], $this->paddingcolor[1], $this->paddingcolor[2]);
+			imagefill($this->modifiedImage, 0, 0, $clear);
+
 			// put original image in the canvas
 		  	imagecopyresampled($this->modifiedImage, $this->imageOriginal, $dest_x, $dest_y, 0, 0, $dest_width, $dest_height, $this->imageOriginalWidth, $this->imageOriginalHeight);
 		}
@@ -149,21 +156,16 @@ class ImageResize
 			$aspectRatio = $width/$height;
 			$scaledWidth = 640;
 			$scaledHeight = floor($scaledWidth / $aspectRatio);
-			error_log("======== Original Image Dimensions : width : ".$width." height : ".$height);
-			error_log("======== Scaled Image Dimensions : width : ".$scaledWidth." height : ".$scaledHeight);
-			$this->processImage($scaledWidth, $scaledHeight, 0);
+			$this->resize($scaledWidth, $scaledHeight, 0);
 		}
 		else if($height > 480){
 			$aspectRatio = $width/$height;
 			$scaledHeight = 480;
 			$scaledWidth = floor($scaledHeight * $aspectRatio);
-			error_log("======== Original Image Dimensions : width : ".$width." height : ".$height);
-			error_log("======== Scaled Image Dimensions : width : ".$scaledWidth." height : ".$scaledHeight);
-			$this->processImage($scaledWidth, $scaledHeight, 0);
+			$this->resize($scaledWidth, $scaledHeight, 0);
 		}
 		else{
-			$this->processImage($width, $height, 0);
-			// $this->modifiedImage = $this->imageOriginal;
+			$this->resize($width, $height, 0);
 		}
 	}
 
@@ -175,6 +177,32 @@ class ImageResize
 			case 'jpg': imagejpeg($this->modifiedImage, $outputImagePath); break;
 			case 'png': imagepng($this->modifiedImage, $outputImagePath); break;
 		}
+	}
+
+	function options($optionName, $optionValue){
+
+		switch ($optionName) {
+			case 'colorpadding':
+				$this->paddingType = 'colorpadding';
+				break;
+
+			case 'paddingcolor':
+				$this->paddingcolor = $optionValue;
+				break;
+
+			case 'crop-image':
+				$this->percentageAllowedForCrop = 100;
+				break;
+
+			case 'crop-percent':
+				$this->percentageAllowedForCrop = $optionValue;
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+
 	}
 }
 ?>
