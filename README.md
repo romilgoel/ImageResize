@@ -63,14 +63,6 @@ If you want to put any color in the padding area
 `$new->options("paddingcolor", array(149,213,50));`  
 `$new->output($output);`  
 
-Input Image:  
-
-![](https://s21.postimg.org/j3khle79z/nature.jpg)
-
-Output Image:  
-
-![](https://s21.postimg.org/js4ve41ef/nature1.jpg)
-
 
 #### Example 4 : Crop Image
 
@@ -85,7 +77,7 @@ Input Image:
 
 Output Image:  
 
-![](https://s16.postimg.org/xv2f88f5x/nature1.jpg)
+![](https://image.ibb.co/j55Lkd/resize_Image.png)
 
 OR, if you want to specify the percentage of image that can be cropped else pad-image with any color/blur image.
 
